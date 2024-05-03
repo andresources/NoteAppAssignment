@@ -1,9 +1,11 @@
 package com.noteappassignment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.noteappassignment.databinding.ActivityAddNotesBinding
+import java.util.Random
 
 
 class AddNotesActivity : AppCompatActivity() {
@@ -22,7 +24,9 @@ class AddNotesActivity : AppCompatActivity() {
     private fun initViews() {
         with(binding){
             btnAddNote.setOnClickListener {
-                databaseHelper.insertData(etTitle.text.toString(), etDescription.text.toString(),"c1","12-21-2023")
+                val rnd = Random()
+                val color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+                databaseHelper.insertData(etTitle.text.toString(), etDescription.text.toString(),"$color","12-21-2023")
                 Toast.makeText(this@AddNotesActivity,"Note added successfully",Toast.LENGTH_SHORT).show()
                 finish()
             }

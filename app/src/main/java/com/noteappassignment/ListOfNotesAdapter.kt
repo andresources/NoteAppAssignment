@@ -31,6 +31,7 @@ class ListOfNotesAdapter(private val notesList: List<Notes>) :
                 tvTitle.text = notes.title
                 tvDescription.text = notes.description
                 tvDate.text = notes.note_date
+                card.setCardBackgroundColor(notes.bgColor.toInt())
             }
         }
     }
