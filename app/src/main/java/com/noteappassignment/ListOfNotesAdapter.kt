@@ -1,5 +1,6 @@
 package com.noteappassignment
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -28,10 +29,20 @@ class ListOfNotesAdapter(private val notesList: List<Notes>) :
         RecyclerView.ViewHolder(localBinding.root) {
         fun bindData(notes: Notes, position: Int) {
             with(localBinding) {
-                tvTitle.text = notes.title
+                tvTitle.text =  "${notes.id} "+notes.title
                 tvDescription.text = notes.description
                 tvDate.text = notes.note_date
                 card.setCardBackgroundColor(notes.bgColor.toInt())
+                ivEdit.setOnClickListener {
+                    var intent = Intent(ivEdit.context,EditActivity::class.java).apply {
+                        putExtra("title",notes.title)
+                        putExtra("description",notes.description)
+                        putExtra("note_date",notes.note_date)
+                        putExtra("bgColor",notes.bgColor)
+                        putExtra("id",notes.id)
+                    }
+                    ivEdit.context.startActivity(intent)
+                }
             }
         }
     }
