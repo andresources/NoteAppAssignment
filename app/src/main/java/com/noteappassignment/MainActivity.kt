@@ -1,17 +1,19 @@
 package com.noteappassignment
 
-import android.R
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.noteappassignment.databinding.ActivityMainBinding
-import com.sqllitedemo.DataBaseHelper
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var databaseHelper: DataBaseHelper
+    private lateinit var listOfNotesAdapter: ListOfNotesAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -21,7 +23,20 @@ class MainActivity : AppCompatActivity() {
     }
     private fun initDataBase() {
         databaseHelper = DataBaseHelper(this)
-        //databaseHelper.insertData("Ashok", 200)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val data = databaseHelper.readData()
+        if (data != null) {
+            listOfNotesAdapter = ListOfNotesAdapter(data)
+        }
+        with(binding) {
+            rv.layoutManager = StaggeredGridLayoutManager(2,0)
+            rv.adapter = listOfNotesAdapter
+            /*rv.layoutManager = LinearLayoutManager(this@MainActivity)
+            rv.adapter = listOfNotesAdapter*/
+        }
     }
 
     private fun initViews() {/*
@@ -46,5 +61,8 @@ class MainActivity : AppCompatActivity() {
         binding.btnUpdate.setOnClickListener {
             databaseHelper.update(4,"Hari", "d1","c1","12-21-2223")
         }*/
+        binding.btnAdd.setOnClickListener {
+            startActivity(Intent(this@MainActivity,AddNotesActivity::class.java))
+        }
     }
 }

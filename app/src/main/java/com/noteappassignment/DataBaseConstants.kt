@@ -1,4 +1,4 @@
-package com.sqllitedemo
+package com.noteappassignment
 
 object DataBaseConstants {
 

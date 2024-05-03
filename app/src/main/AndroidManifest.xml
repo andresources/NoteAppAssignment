@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NoteAppAssignment"
         tools:targetApi="31">
-        <activity android:name="com.notesapplication.AddNotesActivity"/>
+        <activity android:name=".AddNotesActivity"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
