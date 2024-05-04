@@ -30,7 +30,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-         data = databaseHelper.readData()
+        loadData()
+    }
+    private fun loadData(){
+        data = databaseHelper.readData()
         if (data != null) {
             listOfNotesAdapter = ListOfNotesAdapter(data)
         }
@@ -66,30 +69,12 @@ class MainActivity : AppCompatActivity() {
         }).attachToRecyclerView(binding.rv)
     }
 
-    private fun initViews() {/*
-        binding.btnFetch.setOnClickListener() {
-            val data = databaseHelper.readData()
-            if (data != null) {
-                binding.listOfUsers.adapter =
-                    ArrayAdapter(this, R.layout.simple_list_item_1, data)
-            }
-            else{
-                Toast.makeText(this,"No data Found", Toast.LENGTH_LONG).show()
-            }
-
-        }*/
-        /*binding.btnSave.setOnClickListener() {
-            Toast.makeText(this,"DATA SAVING", Toast.LENGTH_LONG).show()
-            databaseHelper.insertData("t1", "d1","c1","12-21-2223")
-        }*/
-        /*binding.btnDelete.setOnClickListener() {
-            databaseHelper.delete(3)
-        }
-        binding.btnUpdate.setOnClickListener {
-            databaseHelper.update(4,"Hari", "d1","c1","12-21-2223")
-        }*/
+    private fun initViews() {
         binding.btnAdd.setOnClickListener {
             startActivity(Intent(this@MainActivity,AddNotesActivity::class.java))
+        }
+        binding.btnRefresh.setOnClickListener {
+            loadData()
         }
     }
 }
