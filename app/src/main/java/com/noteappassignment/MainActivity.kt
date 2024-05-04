@@ -55,6 +55,9 @@ class MainActivity : AppCompatActivity() {
                 if(position>=0) {
                     databaseHelper.delete(data.get(position).id)
                     data = databaseHelper.readData()
+                    if (data != null) {
+                        listOfNotesAdapter = ListOfNotesAdapter(data)
+                    }
                     binding.rv.adapter = listOfNotesAdapter
                     Toast.makeText(this@MainActivity, "Delete", Toast.LENGTH_SHORT).show()
                 }
